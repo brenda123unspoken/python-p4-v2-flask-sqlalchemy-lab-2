@@ -20,6 +20,13 @@ class TestReview:
         '''can be added to a transaction and committed to review table with comment column.'''
         with app.app_context():
             assert 'comment' in Review.__table__.columns
+
+            customer = Customer(name='John Doe')
+            item = Item(name='Pizza', price=12.99)
+            db.session.add_all([customer, item])
+            db.session.commit()
+
+
             r = Review(comment='great!')
             db.session.add(r)
             db.session.commit()
@@ -32,8 +39,8 @@ class TestReview:
             assert 'customer_id' in Review.__table__.columns
             assert 'item_id' in Review.__table__.columns
 
-            c = Customer()
-            i = Item()
+            c = Customer(name='John Doe')
+            i = Item(name='Pizza', price=12.99)
             db.session.add_all([c, i])
             db.session.commit()
 
